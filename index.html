@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+
+var url1="http://api.openweathermap.org/data/2.5/forecast/daily?q=";
+var url2="&units=metric&cnt=5&appid=88c5995ebb4b0ae24a0da431adfc8e89";
+
+
+$(document).ready(function(){
+    $("button").click(function(){
+    	var city=$('#city').val();
+    	var url=url1+city+url2;
+        var val=$.getJSON(url, function(result){
+            $.each(result, function(i, field){
+                $("div").append(field + " ");
+            });
+        });
+    });
+});
+</script>
+</head>
+<body>
+<input id="city"></input>
+<button>Submit</button>
+
+<div></div>
+
+</body>
+</html>

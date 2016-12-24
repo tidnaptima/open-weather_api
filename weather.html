@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Marmelad" rel="stylesheet">
+<style>
+h2,h3 {
+font-family: 'Gloria Hallelujah', cursive;
+        font-size: 20px;
+      }
+input[type=text], select {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+}
+button[type=b1] {
+    width: 50%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+ 	   
+}
+th, td {
+	width: 100%;
+    text-align: left;
+    padding: 8px;
+    font-family: 'Marmelad', sans-serif;
+}
+
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+
+var url1="http://api.openweathermap.org/data/2.5/forecast/daily?q=";
+var url2="&units=metric&cnt=5&appid=88c5995ebb4b0ae24a0da431adfc8e89";
+
+
+$(document).ready(function(){
+    $("button").click(function(){
+     var city=$('#city').val();
+     var url=url1+city+url2;
+        var val=$.getJSON(url, function(result){
+$("div").empty();
+$("div").append("<table>");
+$("div").append("<tr><th>Date</th><th>Time</th><th>Temperarture</th></tr>");
+$("div").append("<tr><td>" + timeConverter1(result.list[0].dt) +"</td><td>" + timeConverter2(result.list[0].dt) + "</td><td>" +result.list[0].temp.day + "&#8451</td></tr>");
+$("div").append("<tr><td>" + timeConverter1(result.list[1].dt) +"</td><td>" + timeConverter2(result.list[1].dt) + "</td><td>" +result.list[1].temp.day + "&#8451</td></tr>");
+$("div").append("<tr><td>" + timeConverter1(result.list[2].dt) +"</td><td>" + timeConverter2(result.list[2].dt) + "</td><td>" +result.list[2].temp.day + "&#8451</td></tr>");
+$("div").append("<tr><td>" + timeConverter1(result.list[3].dt) +"</td><td>" + timeConverter2(result.list[0].dt) + "</td><td>" +result.list[3].temp.day + "&#8451</td></tr>");
+$("div").append("<tr><td>" + timeConverter1(result.list[4].dt) +"</td><td>" + timeConverter2(result.list[4].dt) + "</td><td>" +result.list[4].temp.day + "&#8451</td></tr>");});
+    });
+});
+
+function timeConverter1(UNIX_timestamp){
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time1 = date + ' ' + month + ' ' + year + ' ' ;
+  return time1;
+}
+
+function timeConverter2(UNIX_timestamp){
+  var a = new Date(UNIX_timestamp * 1000);
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time2 = hour + ':' + min + ':' + sec +' ' ;
+  return time2;
+}
+
+
+
+
+
+</script>
+</head>
+<body>
+<center>
+<h2> Hi,Welcome to OpenWeather API
+</h2><h3> Wanna know the weather, Enter the City and Submit!</h3>
+<input type="text" id="city"></input>
+<button type="b1">Submit</button>
+</center>
+<div></div>
+
+</body>
+</html>
